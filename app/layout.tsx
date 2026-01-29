@@ -5,6 +5,8 @@ import Graphik from "next/font/local";
 
 import "./globals.css";
 
+import { ClientLayout } from "@/components/elements/client-layout";
+
 const roboto = Roboto({
   src: "../public/fonts/roboto-flex-latin.woff2",
   display: "swap",
@@ -20,8 +22,10 @@ const graphik = Graphik({
 });
 
 export const metadata: Metadata = {
-  title: "Minibricks – Creating museums, exhibition objects, and architectural models",
-  description: "We specialise in creating museums, exhibition objects, and architectural models, regardless of their complexity. We stand out for our creative approach and the level of detail in our miniatures.",
+  title:
+    "Minibricks – Creating museums, exhibition objects, and architectural models",
+  description:
+    "We specialise in creating museums, exhibition objects, and architectural models, regardless of their complexity. We stand out for our creative approach and the level of detail in our miniatures.",
 };
 
 export default function RootLayout({
@@ -32,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${roboto.variable} ${graphik.variable}  antialiased`}>
-        {children}
+        <ClientLayout> {children}</ClientLayout>
       </body>
     </html>
   );

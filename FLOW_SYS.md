@@ -1,0 +1,3 @@
+- Added a design system markdown file for the reference after breaking down the design of the ref website 
+- Setup fonts, favicon, title , description etc. 
+- Code the navbar
