@@ -1,4 +1,4 @@
-import { Cross, Menu, X } from "lucide-react";
+import {  Menu, X } from "lucide-react";
 
 
 
@@ -21,7 +21,7 @@ export const Navbar = ({ isMenuOpen, setIsMenuOpen }: NavbarProps) => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
   return (
-    <div className="px-8 md:px-14 py-8 md:py-8 flex justify-between items-center ">
+    <div className="px-8 md:px-14 py-8 md:py-8 flex justify-between items-center absolute top-0 left-0 w-full z-50 ">
       <div className="logoContainer w-34  ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 28">
           <path
