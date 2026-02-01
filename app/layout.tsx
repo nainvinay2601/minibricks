@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
-import Roboto from "next/font/local";
+import localFont from "next/font/local";
 import Graphik from "next/font/local";
 
 import "./globals.css";
 
 import { ClientLayout } from "@/components/elements/client-layout";
 
-const roboto = Roboto({
-  src: "../public/fonts/roboto-flex-latin.woff2",
+const fgrok = localFont({
+  src: "../public/fonts/founders-grotesk-condensed-medium.woff2",
   display: "swap",
-  variable: "--font-roboto",
+  variable: "--font-fgrok",
   weight: "550",
 });
 
@@ -18,7 +18,7 @@ const graphik = Graphik({
   src: "../public/fonts/graphik-lcg-regular.woff2",
   display: "swap",
   variable: "--font-graphik",
-  weight: " 400",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${roboto.variable} ${graphik.variable}  antialiased`}>
+      <body className={` ${fgrok.variable} ${graphik.variable}  antialiased`}>
         <ClientLayout> {children}</ClientLayout>
       </body>
     </html>

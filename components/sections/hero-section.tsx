@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Video } from "../elements/video-container";
+
+
 
 export const HeroSection = () => {
+  const videoContainerRef = useRef(null);
+const sectionContainerRef = useRef(null);
+
   return (
-    <div className="p-15 flex  justify-center items-center ">
+    <div
+      ref={sectionContainerRef}
+      className="p-15  flex  justify-center items-center overflow-hidden flex-col"
+    >
       {/* - svg - background -  */}
-      <div className="w-full h-full top-0 left-0 right-0 absolute overflow-x-hidden -z-10">
+      <div className="w-full h-full top-0 left-0 right-0 absolute  -z-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -98,19 +107,35 @@ export const HeroSection = () => {
       </div>
 
       {/* -text - area -  */}
-      <div className="textContainer h-[80vh] uppercase font-roboto text-[170px] leading-none text-black tracking-tight font-medium  w-fit flex flex-col  items-center justify-center ">
+      <div className="textContainer  h-[80vh] uppercase font-fgrok text-[170px] leading-none text-black tracking-tight font-medium  w-full flex flex-col  items-center justify-center ">
         <div className="line1 flex items-center ">
           <div className="textBlock flex flex-col font-graphik text-black text-[28px] leading-[1.2] capitalize tracking-normal">
             <span>Model</span>
             <span>Making</span>
             <span>Company</span>
           </div>
-          <div className="line1Text ">
-            We Create
-          </div>
+          <div className="line1Text ">We Create</div>
         </div>
-        <div className="line2 ">Museums And</div>
+        <div className="line2 flex items-center gap-4 justify-center  ">
+          <span className="text-[#e93b05]"> Museums </span>
+          <Video className="h-28   mt-4" />
+          And
+        </div>
         <div className="line3 ">architectural models</div>
+      </div>
+      {/* hero video  */}
+      <div
+        ref={videoContainerRef}
+        className="heroVideo h-screen w-screen px-15 "
+      >
+        <video
+          src="/videos/short.mp4"
+          className="w-full"
+          autoPlay
+          muted
+          loop
+          playsInline
+        ></video>
       </div>
     </div>
   );
