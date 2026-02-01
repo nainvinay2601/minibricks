@@ -1,11 +1,29 @@
-import React, { useRef } from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import { Video } from "../elements/video-container";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export const HeroSection = () => {
   const videoContainerRef = useRef(null);
-const sectionContainerRef = useRef(null);
+  const sectionContainerRef = useRef(null);
+
+  useEffect(() => {
+    gsap.to(videoContainerRef.current, {
+      paddingLeft: 0,
+      paddingRight: 0,
+      scrollTrigger: {
+        trigger: sectionContainerRef.current,
+        start: " top bottom ",
+        end: "bottom center ",
+        scrub: 0.25,
+
+      },
+    });
+  });
 
   return (
     <div
@@ -126,11 +144,11 @@ const sectionContainerRef = useRef(null);
       {/* hero video  */}
       <div
         ref={videoContainerRef}
-        className="heroVideo h-screen w-screen px-15 "
+        className="heroVideo h-screen w-screen px-20 "
       >
         <video
           src="/videos/short.mp4"
-          className="w-full"
+          className="w-full h-full object-cover"
           autoPlay
           muted
           loop
