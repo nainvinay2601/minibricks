@@ -3,15 +3,109 @@ import React, { useEffect, useRef } from "react";
 import { Video } from "../elements/video-container";
 
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger, SplitText } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const HeroSection = () => {
   const videoContainerRef = useRef(null);
   const sectionContainerRef = useRef(null);
 
+  // Text references
+  const textBlockRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+  const middleVideoRef = useRef(null);
+
   useEffect(() => {
+    //1. split text into words first then add the master timeline and add the animation
+
+    const textBlockSplit = new SplitText(textBlockRef.current, {
+      type: "words",
+      wordsClass: "char", // adds class to each words for styling if needed
+    });
+
+    //  split the main heading lines
+    const line1Split = new SplitText(line1Ref.current, { type: "words" });
+    const line2Split = new SplitText(line2Ref.current, { type: "words" });
+    const line3Split = new SplitText(line3Ref.current, { type: "words" });
+
+    // ======= master timeline ===========
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out" }, // default easing for all animation present in this timeline
+    });
+
+    // animate first text block "model making company"
+    tl.from(textBlockSplit.words, {
+      opacity: 0,
+      x: -50,
+      duration: 1,
+      stagger: 0.15, // delay between each word
+    })
+      .from(
+        line1Split.words,
+        {
+          opacity: 0,
+          x: -50,
+          duration: 0.8,
+          stagger: 0.08,
+        },
+        "-=0.4", // this means start this animation 0.4 second before the previous animation finishes
+      )
+      .from(
+        line2Split.words,
+        {
+          opacity: 0,
+          x: -50,
+          duration: 0.8,
+          stagger: 0.08,
+        },
+        "-=0.3",
+      )
+      // animate the middle video now
+
+      .from(
+        line3Split.words,
+        {
+          opacity: 0,
+          x: -50,
+          duration: 0.8,
+          stagger: 0.08,
+        },
+        "-=0.3",
+      )
+      .fromTo(
+        middleVideoRef.current,
+        {
+          width: 0,
+          transformOrigin: "right center", // grows from right
+        },
+        {
+          width: "auto", // or specific width like "112px"
+          duration: 1.5,
+          ease: "back.out(1.7)",
+        },
+        "-=0.4",
+      )
+      //  animate big hero video
+      .fromTo(
+        videoContainerRef.current,
+        {
+          y: 200, // Start 200px below its final position
+          opacity: 0, // Start invisible
+        },
+        {
+          y: 0, // Move to final position
+          opacity: 1, // Fade in
+          duration: 0.8, // Takes 1.2s to slide up
+          ease: "power2.out",
+        },
+        "-=0.5", // Start 0.5s before text finishes (little overlap as you requested)
+      );
+
+    // big video scroll animation
     gsap.to(videoContainerRef.current, {
       paddingLeft: 0,
       paddingRight: 0,
@@ -20,7 +114,6 @@ export const HeroSection = () => {
         start: " top bottom ",
         end: "bottom center ",
         scrub: 0.25,
-
       },
     });
   });
@@ -125,21 +218,33 @@ export const HeroSection = () => {
       </div>
 
       {/* -text - area -  */}
-      <div className="textContainer  h-[80vh] uppercase font-fgrok text-[170px] leading-none text-black tracking-tight font-medium  w-full flex flex-col  items-center justify-center ">
+      <div className=" textContainer  h-[80vh] uppercase font-fgrok text-[170px] leading-none text-black tracking-tight font-medium  w-full flex flex-col  items-center justify-center ">
         <div className="line1 flex items-center ">
-          <div className="textBlock flex flex-col font-graphik text-black text-[28px] leading-[1.2] capitalize tracking-normal">
+          <div
+            ref={textBlockRef}
+            className="textBlock flex flex-col font-graphik text-black text-[28px] leading-[1.2] capitalize tracking-normal"
+          >
             <span>Model</span>
             <span>Making</span>
             <span>Company</span>
           </div>
-          <div className="line1Text ">We Create</div>
+          <div ref={line1Ref} className="line1Text ">
+            We Create
+          </div>
         </div>
-        <div className="line2 flex items-center gap-4 justify-center  ">
+        <div
+          ref={line2Ref}
+          className="line2 flex items-center gap-4 justify-center  "
+        >
           <span className="text-[#e93b05]"> Museums </span>
-          <Video className="h-28   mt-4" />
+          <div ref={middleVideoRef}>
+            <Video className="h-28   mt-4" />
+          </div>
           And
         </div>
-        <div className="line3 ">architectural models</div>
+        <div ref={line3Ref} className="line3 ">
+          architectural models
+        </div>
       </div>
       {/* hero video  */}
       <div
