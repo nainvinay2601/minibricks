@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import { Label } from "../elements/label";
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
+import { ArrowUpRight } from "lucide-react";
+import { FillButton } from "../elements/fill-button";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 export const IntroAboutUs = () => {
@@ -52,6 +54,7 @@ export const IntroAboutUs = () => {
           our creativeapproach and the level of detail in miniatures.
         </p>
       </div>
+     <FillButton title={"About Us"} />
     </div>
   );
 };
