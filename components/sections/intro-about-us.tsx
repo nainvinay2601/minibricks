@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from "react";
 import { Label } from "../elements/label";
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
-import { ArrowUpRight } from "lucide-react";
+
 import { FillButton } from "../elements/fill-button";
+import { StringPath } from "../elements/string-path";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 export const IntroAboutUs = () => {
@@ -32,7 +33,7 @@ export const IntroAboutUs = () => {
           scrollTrigger: {
             trigger: line, // the line triggers the animation
             start: "top 85%",
-            end: "top 50%",
+            end: "top 90%",
             scrub: 1,
           },
           stagger: 0.2, // words within the line stagger
@@ -44,6 +45,7 @@ export const IntroAboutUs = () => {
   return (
     <div className="p-15">
       <Label title={"About Us"} />
+      <StringPath/>
       <div className="description">
         <p
           ref={descriptionRef}
@@ -54,7 +56,7 @@ export const IntroAboutUs = () => {
           our creativeapproach and the level of detail in miniatures.
         </p>
       </div>
-     <FillButton title={"About Us"} />
+      <FillButton title={"About Us"} />
     </div>
   );
 };
